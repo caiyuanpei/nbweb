@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- 使SpringMVC标签可以被正确解析，不要删除！ -->
+	<mvc:annotation-driven />
+
+	<!-- 映射静态资源，如果不进行映射，则无法被客户端获取，javascript脚本等都需要映射 -->
+	<mvc:resources location="/resources/" mapping="/resources/**" />
+
+	<!-- 映射网站根路径。默认为导向到index。一般不需要修改 -->
+	<mvc:view-controller path="/" view-name="forward:/index" />
+
+	<!-- 定义文件上传组件 -->
+	<bean
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		id="multipartResolver" />
+
+	<!-- 定义tiles视图
+	     视图的配置文件为一个list列表，由一个名字为tilesConfigFileList的bean存储。这个bean定义在context-special.xml中。
+	 -->
+	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"	id="tilesViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
+	</bean>
+	
+	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" id="tilesConfigurer">
+		<property name="definitions" ref="tilesConfigFileList" />
+	</bean>
+
+</beans>
