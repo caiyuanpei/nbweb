@@ -20,14 +20,12 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		id="multipartResolver" />
 
+	<bean class="org.springframework.web.servlet.view.tiles2.TilesViewResolver"	id="tilesViewResolver" />
+	
 	<!-- 定义tiles视图
 	     视图的配置文件为一个list列表，由一个名字为tilesConfigFileList的bean存储。这个bean定义在context-special.xml中。
 	 -->
-	<bean class="org.springframework.web.servlet.view.UrlBasedViewResolver"	id="tilesViewResolver">
-		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
-	</bean>
-	
-	<bean class="org.springframework.web.servlet.view.tiles3.TilesConfigurer" id="tilesConfigurer">
+	<bean class="org.springframework.web.servlet.view.tiles2.TilesConfigurer" id="tilesConfigurer">
 		<property name="definitions" ref="tilesConfigFileList" />
 	</bean>
 
